@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/lol', function () {
-    echo 22;
-});
+Route::get('/', [ViewController::class, 'index']);
+Route::get('/home', [ViewController::class, 'home']);
+Route::post('/save-contact', [ViewController::class, 'saveContact'])->middleware('test')->name('save-contact');
