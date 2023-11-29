@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("number", 255);
             $table->string("zip", 255);
             $table->string("city", 255);
+            $table->unsignedBigInteger("user_id");
             $table->timestamps();
         });
     }

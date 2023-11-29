@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ViewController extends Controller
@@ -33,15 +34,20 @@ class ViewController extends Controller
         $time = $request->attributes->get('time');
 
         if(!empty($senderEmail)) {
-            $newMessage = new Contact();
-            if(isset($time)) {
-                $newMessage->name = $time;
-            } else {
-                $newMessage->name = $senderName;
+            /** @var User $user */
+            $user = User::query()->where('email', $senderEmail)->first();
+            if($user) {
+                $newMessage = new Contact();
+                if(isset($time)) {
+                    $newMessage->name = $time;
+                } else {
+                    $newMessage->name = $senderName;
+                }
+                $newMessage->email = $senderEmail;
+                $newMessage->text = $senderMessage;
+                $newMessage->user_id = $user->id;
+                $newMessage->save();
             }
-            $newMessage->email = $senderEmail;
-            $newMessage->text = $senderMessage;
-            $newMessage->save();
         }
 
         return redirect()->to('/home');

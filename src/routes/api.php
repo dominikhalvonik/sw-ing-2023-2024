@@ -30,3 +30,4 @@ Route::get('/get-user-by-email/{email}', [UserController::class, 'getUserByEmail
 Route::delete('/delete-user/{id}', [UserController::class, 'deleteUser']);
 Route::get('/get-all-users', [UserController::class, 'getAllUsers']);
 Route::patch('/update-user', [UserController::class, 'updateUser']);
+Route::get('/get-all-user-contacts/{id}', [UserController::class, 'getAllUserContacts']);

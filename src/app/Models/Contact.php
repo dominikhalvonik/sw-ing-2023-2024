@@ -15,4 +15,9 @@ class Contact extends Model
      * @var string
      */
     protected $table = 'contact';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

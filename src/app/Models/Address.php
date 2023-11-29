@@ -15,4 +15,9 @@ class Address extends Model
      * @var string
      */
     protected $table = 'address';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

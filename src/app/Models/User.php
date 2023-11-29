@@ -15,4 +15,15 @@ class User extends Model
      * @var string
      */
     protected $table = 'user';
+
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'user_id');
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class, 'user_id');
+    }
 }

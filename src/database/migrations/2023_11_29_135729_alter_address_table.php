@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 200);
-            $table->string('email', 255);
-            $table->text('text');
-            $table->unsignedBigInteger("user_id");
-            $table->timestamps();
+        Schema::table('address', function (Blueprint $table) {
+            $table->foreign('user_id', 'fk_address_user1')->references('id')->on('user')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contact');
+        Schema::table('address', function (Blueprint $table) {
+            $table->dropForeign('fk_address_user1');
+        });
     }
 };

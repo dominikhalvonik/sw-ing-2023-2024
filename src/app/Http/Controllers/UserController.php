@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -75,5 +78,19 @@ class UserController extends Controller
         $user->update();
 
         return response()->json($user);
+    }
+
+    public function getAllUserContacts(int $id)
+    {
+        DB::connection()->enableQueryLog();
+        $user = User::query()->find($id);
+        if($user) {
+            /** @var Collection $contacts */
+            $contacts = $user->contacts;
+            $queries = DB::getQueryLog();
+            return response()->json($contacts);
+        } else {
+            return response()->json('User not found', 404);
+        }
     }
 }
